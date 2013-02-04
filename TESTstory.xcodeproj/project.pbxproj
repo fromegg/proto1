@@ -12,6 +12,7 @@
 		781D7594167B343600DF7E89 /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7591167B343600DF7E89 /* CPDConstants.m */; };
 		781D7595167B343600DF7E89 /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7593167B343600DF7E89 /* CPDStockPriceStore.m */; };
 		781D7599167B64D200DF7E89 /* ReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7598167B64D200DF7E89 /* ReportVC.m */; };
+		7852478D16C01AA700F2C748 /* p1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7852478C16C01AA700F2C748 /* p1.jpg */; };
 		785A0DF716787510008DF2B7 /* TestListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 785A0DF616787510008DF2B7 /* TestListVC.m */; };
 		7879136E1684538900265183 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 787913681684538900265183 /* 1.png */; };
 		7879136F1684538900265183 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 787913691684538900265183 /* 2.png */; };
@@ -66,6 +67,7 @@
 		781D7593167B343600DF7E89 /* CPDStockPriceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDStockPriceStore.m; sourceTree = "<group>"; };
 		781D7597167B64D200DF7E89 /* ReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportVC.h; sourceTree = "<group>"; };
 		781D7598167B64D200DF7E89 /* ReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportVC.m; sourceTree = "<group>"; };
+		7852478C16C01AA700F2C748 /* p1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = p1.jpg; path = images/p1.jpg; sourceTree = "<group>"; };
 		785A0DF516787510008DF2B7 /* TestListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestListVC.h; sourceTree = "<group>"; };
 		785A0DF616787510008DF2B7 /* TestListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestListVC.m; sourceTree = "<group>"; };
 		787913681684538900265183 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1.png; path = images/1.png; sourceTree = "<group>"; };
@@ -238,18 +240,13 @@
 		781D7596167B343D00DF7E89 /* CorePlot */ = {
 			isa = PBXGroup;
 			children = (
+				781D758B167B30C800DF7E89 /* CPDPieChartViewController.h */,
+				781D758C167B30C800DF7E89 /* CPDPieChartViewController.m */,
 				789FE0E0167B263600B2393C /* libCorePlot-CocoaTouch.a */,
 				781D758F167B343600DF7E89 /* Starter Files */,
 				789FE095167B262300B2393C /* CorePlotHeaders */,
 			);
 			name = CorePlot;
-			sourceTree = "<group>";
-		};
-		7875FA9C16B6AEE0006B97F5 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		7875FA9E16B6AEE8006B97F5 /* TestViews */ = {
@@ -270,6 +267,7 @@
 		787913661684535200265183 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7852478C16C01AA700F2C748 /* p1.jpg */,
 				789AF0DD16AC747F00E65116 /* tick.aiff */,
 				789AF0CA16AC5CEF00E65116 /* aim1.png */,
 				787913681684538900265183 /* 1.png */,
@@ -286,9 +284,6 @@
 		78957A03167691DA00CA2B37 = {
 			isa = PBXGroup;
 			children = (
-				78FED77416B1707D006D589A /* CoreData.framework */,
-				789AF0DB16AC70B600E65116 /* AudioToolbox.framework */,
-				789AF0D916AC70AD00E65116 /* CoreAudio.framework */,
 				78957A18167691DA00CA2B37 /* TESTstory */,
 				78957A11167691DA00CA2B37 /* Frameworks */,
 				78957A0F167691DA00CA2B37 /* Products */,
@@ -306,6 +301,9 @@
 		78957A11167691DA00CA2B37 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				78FED77416B1707D006D589A /* CoreData.framework */,
+				789AF0DB16AC70B600E65116 /* AudioToolbox.framework */,
+				789AF0D916AC70AD00E65116 /* CoreAudio.framework */,
 				78D7066016A73E9000C00332 /* AssetsLibrary.framework */,
 				78D7065E16A6A4CD00C00332 /* Accelerate.framework */,
 				78D7065C16A6A4C600C00332 /* AVFoundation.framework */,
@@ -327,8 +325,6 @@
 				78A2510416AEA35B0018CC61 /* Screens */,
 				787913661684535200265183 /* Resources */,
 				781D7596167B343D00DF7E89 /* CorePlot */,
-				781D758B167B30C800DF7E89 /* CPDPieChartViewController.h */,
-				781D758C167B30C800DF7E89 /* CPDPieChartViewController.m */,
 				78957A21167691DA00CA2B37 /* AppDelegate.h */,
 				78957A22167691DA00CA2B37 /* AppDelegate.m */,
 				78957A2A167691DA00CA2B37 /* MainStoryboard_iPhone.storyboard */,
@@ -440,7 +436,6 @@
 				7800B437168DB57E006E8CE3 /* LoginVC.h */,
 				7800B438168DB57E006E8CE3 /* LoginVC.m */,
 				7875FA9E16B6AEE8006B97F5 /* TestViews */,
-				7875FA9C16B6AEE0006B97F5 /* New Group */,
 				78D7066616A7EA1C00C00332 /* Opencv */,
 				78A2510516AEA3730018CC61 /* Result  */,
 				78A2510C16AEA6ED0018CC61 /* Final Screen */,
@@ -545,6 +540,7 @@
 				787913731684538900265183 /* 18-envelope.png in Resources */,
 				789AF0CB16AC5CEF00E65116 /* aim1.png in Resources */,
 				789AF0DE16AC747F00E65116 /* tick.aiff in Resources */,
+				7852478D16C01AA700F2C748 /* p1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,7 +619,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -645,7 +641,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

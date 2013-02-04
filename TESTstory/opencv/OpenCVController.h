@@ -16,6 +16,7 @@
     cv::Mat _lastFrame;
     CvVideoCamera *_videoCamera;
     int _state;
+    UIActivityIndicatorView *_spinner;
 }
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *control;
@@ -26,6 +27,7 @@
 - (IBAction)onAction:(id)sender;
 - (void)filter1:(cv::Mat&)image;
 - (void)filter2:(cv::Mat&)src withCrop:(BOOL)doCrop;
+- (void)unwrapTarget:(cv::Mat&)src;
 - (UIImage*)cropImage:(cv::Mat&)src;
 
 @end

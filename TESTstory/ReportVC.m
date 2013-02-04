@@ -61,8 +61,9 @@
     tbvc.test = _test;
     
     assert(tbvc.viewControllers.count == 2);
-    ((TestDetails*)tbvc.viewControllers[0]).view.image = dataToImage(_test.capturedImage);
-    ((TestDetails*)tbvc.viewControllers[1]).view.image = dataToImage(_test.capturedImageCropped);
+    ((TestDetails*)tbvc.viewControllers[0]).view.image = dataToImage(_test.capturedImageCropped);
+    ((TestDetails*)tbvc.viewControllers[1]).view.image = dataToImage(_test.capturedImage);
+
 }
 
 

@@ -18,6 +18,7 @@
 
 +(UIImage *)imageWithCVMat:(const cv::Mat&)cvMat;
 -(id)initWithCVMat:(const cv::Mat&)cvMat;
++ (cv::Mat)cvMatWithImage:(UIImage *)image;
 
 @property(nonatomic, readonly) cv::Mat CVMat;
 @property(nonatomic, readonly) cv::Mat CVGrayscaleMat;
