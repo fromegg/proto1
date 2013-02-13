@@ -13,29 +13,7 @@
 @dynamic cat;
 @dynamic capturedImageCropped;
 @dynamic capturedImage;
-
-
-
-//-(void) setupCapturedImage:(UIImage *)image
-//{
-//    capturedImage = [UIImagePNGRepresentation(image) copy];
-//}
-//
-//-(UIImage*) getCapturedImage
-//{
-//    return [UIImage imageWithData:capturedImage];
-//}
-//
-//
-//-(void) setupCapturedImageCropped:(UIImage *)image
-//{
-//    capturedImageCroped = [UIImagePNGRepresentation(image) copy];
-//}
-//
-//-(UIImage*) getCapturedImageCropped
-//{
-//    return UIImage imageWithData:capturedImageCroped];
-//}[
+@dynamic plotImage;
 
 @end
 

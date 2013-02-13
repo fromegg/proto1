@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GraphView.h"
 
-@interface GraphVC : UIViewController
-
+@interface GraphVC : UIViewController<TestInfoHolder>
+{
+    THistoChannels histograms;
+}
+@property (nonatomic) IBOutlet GraphView *graphView;
 @end

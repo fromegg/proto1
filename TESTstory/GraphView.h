@@ -1,13 +1,17 @@
-//
-//  CPDFirstViewController.h
-//  CorePlotDemo
-//
-//  Created by Fahim Farook on 19/5/12.
-//  Copyright (c) 2012 RookSoft Pte. Ltd. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
+#import "CorePlot-CocoaTouch.h"
 
-@interface CPDPieChartViewController: UIViewController <CPTPlotDataSource, UIActionSheetDelegate>
+typedef std::map<std::string,std::vector<int>> THistoChannels;
+
+@interface GraphView : CPTGraphHostingView <CPTPlotDataSource, CPTPlotSpaceDelegate>
+{    
+    NSDictionary *data;
+    NSDictionary *sets;
+    
+    THistoChannels *_channels;
+}
+
+@property (nonatomic) CPTXYGraph* graph;
+- (void)createGraph:(THistoChannels*) channels;
 
 @end

@@ -20,4 +20,6 @@
     #import "CPDStockPriceStore.h"
     #import <CoreData/CoreData.h>
     #import "TestInfo.h"
+    #import "PatientProfile.h"
 #endif
+

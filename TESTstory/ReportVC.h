@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TestInfo.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface ReportVC : UIViewController<UIActionSheetDelegate, TestInfoHolder>
+@interface ReportVC : UIViewController<UIActionSheetDelegate, TestInfoHolder, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 @property (nonatomic) TestInfo *test;
 @end

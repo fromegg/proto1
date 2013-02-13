@@ -5,8 +5,9 @@
 //  Created by igor on 1/17/13.
 //  Copyright (c) 2013 igor. All rights reserved.
 //
-#import "UIImage+OpenCV.h"
 #import "OpenCVController.h"
+#import "UIImage2OpenCV.h"
+
 
 @interface OpenCVController ()
 - (void)processFrame;
@@ -23,20 +24,19 @@
 	return self;
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIDeviceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
--(BOOL)shouldAutorotate
-{
-    return FALSE;
-}
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [_spinner setCenter:self.view.center];
+    [self.view addSubview:_spinner];
+    [self.view bringSubviewToFront:_spinner];
     
     bool isPhotoesPresent = _test.capturedImage && _test.capturedImageCropped;
     [_nextButton setEnabled:isPhotoesPresent];
@@ -52,7 +52,6 @@
     [self.view addSubview:overlay];
     [self.view bringSubviewToFront:_control];
     
-    
     _videoCamera = [[CvVideoCamera alloc] initWithParentView:_imageView];
     _videoCamera.delegate = self;
     _videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
@@ -60,12 +59,12 @@
     _videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
     _videoCamera.defaultFPS = 20;
     
-    _state = 0;
-    [_control setEnabled:NO forSegmentAtIndex:2];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:_videoCamera];
     
 #if (TARGET_IPHONE_SIMULATOR)
-    _imageView.image = [UIImage imageNamed:@"p1.jpg"];
-    _lastFrame = [UIImage cvMatWithImage:_imageView.image];
+    _imageView.image = [UIImage imageNamed:@"rawImage.png"];
+    _lastFrame = [_imageView.image toMat];
 #endif
     
     [_videoCamera start];
@@ -84,60 +83,35 @@
     //    src.copyTo(crop, mask);
     //
     
-    return [UIImage imageWithCVMat: _lastFrame];
+    return [UIImage imageWithMat: _lastFrame andImageOrientation:UIImageOrientationUp];
 }
 
 - (IBAction)onAction:(id)sender
 {
-    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
-    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    AudioServicesPlaySystemSound(_tickSound);
     
+    [_spinner startAnimating];
     
-    if (selectedSegment == 0)
-    {
-        _state = 0;
-    }
-    else if (selectedSegment == 1)
-    {
-        _state = 1;
-        [segmentedControl setEnabled:YES forSegmentAtIndex:2];
-    }
-    else if (selectedSegment == 2)
-    {
-        AudioServicesPlaySystemSound(_tickSound);
+    __block cv::Mat capturedCropped = _lastFrame.clone();
+    __block cv::Mat captured = _lastFrame.clone();
+
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+              
+        [self unwrapTarget:capturedCropped];
         
-        if(!_spinner)
-        {
-            _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            [_spinner setCenter:_imageView.center];
-            [_imageView addSubview:_spinner];
-            [_imageView bringSubviewToFront:_spinner];
-        }
+        _test.capturedImage = imageToData([UIImage imageWithMat: captured andImageOrientation:UIImageOrientationUp]);
+        _test.capturedImageCropped = imageToData([UIImage imageWithMat: capturedCropped andImageOrientation:UIImageOrientationUp]);
         
-        [_spinner startAnimating];
-        
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_spinner stopAnimating];
+            [_nextButton setEnabled:YES];
             
-            //[NSThread sleepForTimeInterval:2];
-            
-            cv::Mat capturedCropped = _lastFrame.clone();
-            cv::Mat captured = _lastFrame.clone();
-            //[self filter2:capturedCropped withCrop:YES];
-//            [self filter2:captured withCrop:NO];
-            [self unwrapTarget:capturedCropped];
-            
-            _test.capturedImage = imageToData([UIImage imageWithCVMat:captured]);
-            _test.capturedImageCropped = imageToData([UIImage imageWithCVMat:capturedCropped]);
-            
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [_spinner stopAnimating];
-                [segmentedControl setSelectedSegmentIndex:0];
-                [_nextButton setEnabled:YES];
-            });
-            
+            [self performSegueWithIdentifier:@"afterCapturing" sender:self];
         });
         
-    }
+    });
+    
 }
 
 - (void)filter1:(cv::Mat&)image
@@ -188,7 +162,8 @@
     Mat gray;
     cvtColor(src, gray, CV_RGB2GRAY);
     
-    Canny(gray, gray, 160, 650, 5);
+    //Canny(gray, gray, 160, 650, 5);
+    Canny(gray, gray, 250, 250, 5);
     
     // src = gray;
     
@@ -223,7 +198,7 @@
     contoursApproxed.push_back(approxedContour);
     
     drawContours(src, contours, biggestContour, cvScalar(0, 255, 0), 2 );
-    drawContours(src, contoursApproxed, -1, Scalar(255,0,0), 2);
+    //drawContours(src, contoursApproxed, -1, Scalar(255,0,0), 2);
     
     if(doCrop)
     {
@@ -301,7 +276,7 @@ double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
             for (size_t i = 0; i < contours.size(); i++)
             {
                 approxPolyDP(Mat(contours[i]), approx, arcLength(Mat(contours[i]), true)*0.02, true);
-
+                
                 if (approx.size() == 4 &&
                     fabs(contourArea(Mat(approx))) > 1000 &&
                     isContourConvex(Mat(approx)))
@@ -333,7 +308,7 @@ double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
         cv::Point2i *rect_points = &bigRect[0];
         for ( int j = 0; j < 4; j++ )
         {
-            cv::line( image, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 2, 8 ); // blue
+            // cv::line( dst, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,0,255), 2, 8 ); // blue
         }
         
         cv::RotatedRect box = minAreaRect(bigRect);
@@ -377,11 +352,8 @@ double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
 
 - (void)processImage:(cv::Mat&)image
 {
-    if(_state)
-    {
-        image.copyTo(_lastFrame);
-        [self filter2:image withCrop:NO];
-    }
+    _lastFrame = image.clone();
+    [self filter2:image withCrop:NO];
 }
 
 #pragma message("REFACTOR THIS SHIT")
@@ -395,8 +367,6 @@ double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 ) {
 -(void) viewWillAppear:(BOOL)animated
 {
     [_videoCamera start];
-    _state = 0;
-    [_control setEnabled:NO forSegmentAtIndex:2];
 }
 
 -(void) viewWillDisappear:(BOOL)animated

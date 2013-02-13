@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7800B439168DB57E006E8CE3 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7800B438168DB57E006E8CE3 /* LoginVC.m */; };
-		781D758E167B32E000DF7E89 /* CPDPieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D758C167B30C800DF7E89 /* CPDPieChartViewController.m */; };
+		78040ECB16C4042200AF19C6 /* GraphVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78040ECA16C4042200AF19C6 /* GraphVC.mm */; };
+		78049BEE16C4F37E00D840D1 /* testVide.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78049BED16C4F37E00D840D1 /* testVide.mm */; };
+		78049BF116C4FE5800D840D1 /* UIImage2OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78049BF016C4FE5800D840D1 /* UIImage2OpenCV.mm */; };
+		7816B4D216CA39050033F2EA /* PatientProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7816B4D116CA39050033F2EA /* PatientProfile.m */; };
+		781D758E167B32E000DF7E89 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781D758C167B30C800DF7E89 /* GraphView.mm */; };
 		781D7594167B343600DF7E89 /* CPDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7591167B343600DF7E89 /* CPDConstants.m */; };
 		781D7595167B343600DF7E89 /* CPDStockPriceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7593167B343600DF7E89 /* CPDStockPriceStore.m */; };
 		781D7599167B64D200DF7E89 /* ReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D7598167B64D200DF7E89 /* ReportVC.m */; };
@@ -35,6 +39,7 @@
 		789AF0DC16AC70B600E65116 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789AF0DB16AC70B600E65116 /* AudioToolbox.framework */; };
 		789AF0DE16AC747F00E65116 /* tick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 789AF0DD16AC747F00E65116 /* tick.aiff */; };
 		789B658E16B28C1400697A2A /* TestsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 789B658C16B28C1400697A2A /* TestsModel.xcdatamodeld */; };
+		789CA2A316C96D5300FF577E /* rawImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CA2A216C96D5300FF577E /* rawImage.png */; };
 		789FE0671678803100B2393C /* TestDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 789FE0661678803100B2393C /* TestDetailsVC.m */; };
 		789FE06B1678820100B2393C /* TestTypePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 789FE06A1678820100B2393C /* TestTypePicker.m */; };
 		789FE07116789B7600B2393C /* TestInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 789FE07016789B7600B2393C /* TestInfo.mm */; };
@@ -51,16 +56,24 @@
 		78D7065D16A6A4C600C00332 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D7065C16A6A4C600C00332 /* AVFoundation.framework */; };
 		78D7065F16A6A4CD00C00332 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D7065E16A6A4CD00C00332 /* Accelerate.framework */; };
 		78D7066116A73E9000C00332 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D7066016A73E9000C00332 /* AssetsLibrary.framework */; };
-		78D7066916A7EA5800C00332 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78D7066816A7EA5800C00332 /* UIImage+OpenCV.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		78D7066F16A7EB6300C00332 /* OpenCVController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78D7066E16A7EB6300C00332 /* OpenCVController.mm */; };
+		78F8D31B16C46425002FC49D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F8D31A16C46425002FC49D /* MessageUI.framework */; };
 		78FED77516B1707D006D589A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FED77416B1707D006D589A /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7800B437168DB57E006E8CE3 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		7800B438168DB57E006E8CE3 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
-		781D758B167B30C800DF7E89 /* CPDPieChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPDPieChartViewController.h; sourceTree = "<group>"; };
-		781D758C167B30C800DF7E89 /* CPDPieChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPDPieChartViewController.m; sourceTree = "<group>"; };
+		78040EC916C4042200AF19C6 /* GraphVC.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = GraphVC.h; sourceTree = "<group>"; };
+		78040ECA16C4042200AF19C6 /* GraphVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphVC.mm; sourceTree = "<group>"; };
+		78049BEC16C4F37E00D840D1 /* testVide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testVide.h; path = opencv/testVide.h; sourceTree = "<group>"; };
+		78049BED16C4F37E00D840D1 /* testVide.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = testVide.mm; path = opencv/testVide.mm; sourceTree = "<group>"; };
+		78049BEF16C4FE5800D840D1 /* UIImage2OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImage2OpenCV.h; path = opencv/UIImage2OpenCV.h; sourceTree = "<group>"; };
+		78049BF016C4FE5800D840D1 /* UIImage2OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UIImage2OpenCV.mm; path = opencv/UIImage2OpenCV.mm; sourceTree = "<group>"; };
+		7816B4D016CA39050033F2EA /* PatientProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientProfile.h; sourceTree = "<group>"; };
+		7816B4D116CA39050033F2EA /* PatientProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientProfile.m; sourceTree = "<group>"; };
+		781D758B167B30C800DF7E89 /* GraphView.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = GraphView.h; sourceTree = "<group>"; };
+		781D758C167B30C800DF7E89 /* GraphView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphView.mm; sourceTree = "<group>"; };
 		781D7590167B343600DF7E89 /* CPDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDConstants.h; sourceTree = "<group>"; };
 		781D7591167B343600DF7E89 /* CPDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPDConstants.m; sourceTree = "<group>"; };
 		781D7592167B343600DF7E89 /* CPDStockPriceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDStockPriceStore.h; sourceTree = "<group>"; };
@@ -95,6 +108,7 @@
 		789AF0DB16AC70B600E65116 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		789AF0DD16AC747F00E65116 /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 		789B658D16B28C1400697A2A /* TestsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestsModel.xcdatamodel; sourceTree = "<group>"; };
+		789CA2A216C96D5300FF577E /* rawImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rawImage.png; sourceTree = "<group>"; };
 		789FE0651678803100B2393C /* TestDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDetailsVC.h; sourceTree = "<group>"; };
 		789FE0661678803100B2393C /* TestDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDetailsVC.m; sourceTree = "<group>"; };
 		789FE0691678820100B2393C /* TestTypePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTypePicker.h; sourceTree = "<group>"; };
@@ -192,10 +206,9 @@
 		78D7065C16A6A4C600C00332 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		78D7065E16A6A4CD00C00332 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		78D7066016A73E9000C00332 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		78D7066716A7EA5800C00332 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+OpenCV.h"; path = "opencv/UIImage+OpenCV.h"; sourceTree = "<group>"; };
-		78D7066816A7EA5800C00332 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "UIImage+OpenCV.mm"; path = "opencv/UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		78D7066D16A7EB6300C00332 /* OpenCVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenCVController.h; path = opencv/OpenCVController.h; sourceTree = "<group>"; };
 		78D7066E16A7EB6300C00332 /* OpenCVController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVController.mm; path = opencv/OpenCVController.mm; sourceTree = "<group>"; };
+		78F8D31A16C46425002FC49D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		78FED77416B1707D006D589A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -204,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F8D31B16C46425002FC49D /* MessageUI.framework in Frameworks */,
 				78FED77516B1707D006D589A /* CoreData.framework in Frameworks */,
 				789AF0DC16AC70B600E65116 /* AudioToolbox.framework in Frameworks */,
 				789AF0DA16AC70AD00E65116 /* CoreAudio.framework in Frameworks */,
@@ -225,6 +239,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78049BF216C4FE5F00D840D1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7816B4D016CA39050033F2EA /* PatientProfile.h */,
+				7816B4D116CA39050033F2EA /* PatientProfile.m */,
+				78049BEF16C4FE5800D840D1 /* UIImage2OpenCV.h */,
+				78049BF016C4FE5800D840D1 /* UIImage2OpenCV.mm */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		781D758F167B343600DF7E89 /* Starter Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,8 +265,10 @@
 		781D7596167B343D00DF7E89 /* CorePlot */ = {
 			isa = PBXGroup;
 			children = (
-				781D758B167B30C800DF7E89 /* CPDPieChartViewController.h */,
-				781D758C167B30C800DF7E89 /* CPDPieChartViewController.m */,
+				78040EC916C4042200AF19C6 /* GraphVC.h */,
+				78040ECA16C4042200AF19C6 /* GraphVC.mm */,
+				781D758B167B30C800DF7E89 /* GraphView.h */,
+				781D758C167B30C800DF7E89 /* GraphView.mm */,
 				789FE0E0167B263600B2393C /* libCorePlot-CocoaTouch.a */,
 				781D758F167B343600DF7E89 /* Starter Files */,
 				789FE095167B262300B2393C /* CorePlotHeaders */,
@@ -267,6 +294,7 @@
 		787913661684535200265183 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				789CA2A216C96D5300FF577E /* rawImage.png */,
 				7852478C16C01AA700F2C748 /* p1.jpg */,
 				789AF0DD16AC747F00E65116 /* tick.aiff */,
 				789AF0CA16AC5CEF00E65116 /* aim1.png */,
@@ -301,6 +329,7 @@
 		78957A11167691DA00CA2B37 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				78F8D31A16C46425002FC49D /* MessageUI.framework */,
 				78FED77416B1707D006D589A /* CoreData.framework */,
 				789AF0DB16AC70B600E65116 /* AudioToolbox.framework */,
 				789AF0D916AC70AD00E65116 /* CoreAudio.framework */,
@@ -322,9 +351,10 @@
 		78957A18167691DA00CA2B37 /* TESTstory */ = {
 			isa = PBXGroup;
 			children = (
+				781D7596167B343D00DF7E89 /* CorePlot */,
+				78049BF216C4FE5F00D840D1 /* Common */,
 				78A2510416AEA35B0018CC61 /* Screens */,
 				787913661684535200265183 /* Resources */,
-				781D7596167B343D00DF7E89 /* CorePlot */,
 				78957A21167691DA00CA2B37 /* AppDelegate.h */,
 				78957A22167691DA00CA2B37 /* AppDelegate.m */,
 				78957A2A167691DA00CA2B37 /* MainStoryboard_iPhone.storyboard */,
@@ -468,10 +498,10 @@
 		78D7066616A7EA1C00C00332 /* Opencv */ = {
 			isa = PBXGroup;
 			children = (
+				78049BEC16C4F37E00D840D1 /* testVide.h */,
+				78049BED16C4F37E00D840D1 /* testVide.mm */,
 				78D7066D16A7EB6300C00332 /* OpenCVController.h */,
 				78D7066E16A7EB6300C00332 /* OpenCVController.mm */,
-				78D7066716A7EA5800C00332 /* UIImage+OpenCV.h */,
-				78D7066816A7EA5800C00332 /* UIImage+OpenCV.mm */,
 			);
 			name = Opencv;
 			sourceTree = "<group>";
@@ -541,6 +571,7 @@
 				789AF0CB16AC5CEF00E65116 /* aim1.png in Resources */,
 				789AF0DE16AC747F00E65116 /* tick.aiff in Resources */,
 				7852478D16C01AA700F2C748 /* p1.jpg in Resources */,
+				789CA2A316C96D5300FF577E /* rawImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,17 +589,20 @@
 				789FE06B1678820100B2393C /* TestTypePicker.m in Sources */,
 				789FE07116789B7600B2393C /* TestInfo.mm in Sources */,
 				789FE086167A32A300B2393C /* UserProfileVC.m in Sources */,
-				781D758E167B32E000DF7E89 /* CPDPieChartViewController.m in Sources */,
+				781D758E167B32E000DF7E89 /* GraphView.mm in Sources */,
 				781D7594167B343600DF7E89 /* CPDConstants.m in Sources */,
 				781D7595167B343600DF7E89 /* CPDStockPriceStore.m in Sources */,
 				781D7599167B64D200DF7E89 /* ReportVC.m in Sources */,
 				7800B439168DB57E006E8CE3 /* LoginVC.m in Sources */,
-				78D7066916A7EA5800C00332 /* UIImage+OpenCV.mm in Sources */,
 				78D7066F16A7EB6300C00332 /* OpenCVController.mm in Sources */,
 				78A2510316AE96A30018CC61 /* ResultsTabVC.m in Sources */,
 				78A2510816AEA3C60018CC61 /* TestResults.m in Sources */,
 				78A2510B16AEA3D90018CC61 /* TestDetails.m in Sources */,
 				789B658E16B28C1400697A2A /* TestsModel.xcdatamodeld in Sources */,
+				78040ECB16C4042200AF19C6 /* GraphVC.mm in Sources */,
+				78049BEE16C4F37E00D840D1 /* testVide.mm in Sources */,
+				78049BF116C4FE5800D840D1 /* UIImage2OpenCV.mm in Sources */,
+				7816B4D216CA39050033F2EA /* PatientProfile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +650,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -638,7 +672,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -651,7 +685,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: igor popov (U6VB2LHZ8A)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -670,7 +704,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D17D39DA-7ABE-4B01-9C09-8E9379A7449C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -680,7 +714,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: igor popov (U6VB2LHZ8A)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -699,7 +733,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D17D39DA-7ABE-4B01-9C09-8E9379A7449C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

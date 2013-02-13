@@ -9,10 +9,11 @@
 
 
 @interface TestInfo : NSManagedObject
-@property (nonatomic, strong) NSString  *name;
-@property (nonatomic, strong) NSString  *cat;
-@property (nonatomic, strong) NSData *capturedImage;
-@property (nonatomic, strong) NSData *capturedImageCropped;
+@property (atomic, strong) NSString  *name;
+@property (atomic, strong) NSString  *cat;
+@property (atomic, strong) NSData *capturedImage;
+@property (atomic, strong) NSData *capturedImageCropped;
+@property (atomic, strong) NSData *plotImage;
 
 #pragma message("how to set custom methods,getters here ?")
 //-(UIImage*) getCapturedImage;

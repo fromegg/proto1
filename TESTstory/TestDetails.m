@@ -23,6 +23,7 @@
 {
     [super viewDidLoad];
     self.view.contentMode = UIViewContentModeScaleAspectFit;
+    self.view.backgroundColor = [UIColor blackColor];
 }
 
 - (void)didReceiveMemoryWarning

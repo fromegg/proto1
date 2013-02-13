@@ -1,199 +1,208 @@
-//
-//  CPDFirstViewController.m
-//  CorePlotDemo
-//
-//  Created by Fahim Farook on 19/5/12.
-//  Copyright (c) 2012 RookSoft Pte. Ltd. All rights reserved.
-//
+#import "GraphVC.h"
 
-#import "CPDPieChartViewController.h"
+@implementation GraphView
 
-@interface CPDPieChartViewController ()
 
-@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *themeButton;
-@property (nonatomic, strong) CPTGraphHostingView *hostView;
-@property (nonatomic, strong) CPTTheme *selectedTheme;
-
--(void)initPlot;
--(void)configureHost;
--(void)configureGraph;
--(void)configureChart;
--(void)configureLegend;
-
-@end
-
-@implementation CPDPieChartViewController
-
-@synthesize toolbar = toolbar_;
-@synthesize themeButton = themeButton_;
-@synthesize hostView = hostView_;
-@synthesize selectedTheme = selectedTheme_;
-
--(void)viewWillAppear:(BOOL)animated
+- (void)generateLayout
 {
-    [super viewWillAppear:animated];
-    [self initPlot];  
+    
+    int x_axis_width = (*_channels)["red"].size();
+    
+	_graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
+	[_graph applyTheme:[CPTTheme themeNamed:kCPTStocksTheme]];
+	self.hostedGraph                    = _graph;
+    _graph.plotAreaFrame.masksToBorder   = NO;
+    
+    _graph.paddingLeft                   = 0.0f;
+    _graph.paddingTop                    = 0.0f;
+	_graph.paddingRight                  = 0.0f;
+	_graph.paddingBottom                 = 0.0f;
+    
+    CPTMutableLineStyle *borderLineStyle    = [CPTMutableLineStyle lineStyle];
+	borderLineStyle.lineColor               = [CPTColor whiteColor];
+	borderLineStyle.lineWidth               = .7f;
+	_graph.plotAreaFrame.borderLineStyle     = borderLineStyle;
+	_graph.plotAreaFrame.paddingTop          = 80.0;
+	_graph.plotAreaFrame.paddingRight        = 30.0;
+	_graph.plotAreaFrame.paddingBottom       = 50.0;
+	_graph.plotAreaFrame.paddingLeft         = 50.0;
+    
+	//Add plot space
+	CPTXYPlotSpace *plotSpace       = (CPTXYPlotSpace *)_graph.defaultPlotSpace;
+    plotSpace.delegate              = self;
+	plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInt(0)
+                                                                   length:CPTDecimalFromInt(255)];
+	plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromInt(0)
+                                                                   length:CPTDecimalFromInt(x_axis_width)];
+    
+    //Grid line styles
+	CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+	majorGridLineStyle.lineWidth            = 0.75;
+	majorGridLineStyle.lineColor            = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+	minorGridLineStyle.lineWidth            = 0.25;
+	minorGridLineStyle.lineColor            = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    
+    //Axes
+	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)_graph.axisSet;
+    
+    //X axis
+    CPTXYAxis *x    = axisSet.xAxis;
+    {
+        x.title                 = @"";
+        x.titleOffset           = 25.0f;
+        x.orthogonalCoordinateDecimal   = CPTDecimalFromInt(0);
+        x.majorIntervalLength           = CPTDecimalFromInt(1);
+        x.minorTicksPerInterval         = 0;
+        x.labelingPolicy                = CPTAxisLabelingPolicyNone;
+        x.majorGridLineStyle            = majorGridLineStyle;
+        x.axisConstraints               = [CPTConstraints constraintWithLowerOffset:0.0];
+        
+        
+//        NSArray *customTickLocations = [NSArray arrayWithObjects:
+//                                        [NSDecimalNumber numberWithInt:0],
+//                                        [NSDecimalNumber numberWithInt:127],
+//                                        [NSDecimalNumber numberWithInt:255],
+//                                        nil];
+//        
+//        NSMutableArray *customLabels = [NSMutableArray arrayWithCapacity:[customTickLocations count]];
+//        for ( NSNumber *tickLocation in customTickLocations )
+//        {
+//            CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:[tickLocation stringValue] textStyle:x.labelTextStyle];
+//            newLabel.tickLocation = [tickLocation decimalValue];
+//            newLabel.offset       = x.labelOffset + x.majorTickLength;
+//            [customLabels addObject:newLabel];
+//        }
+        
+//        x.axisLabels = [NSSet setWithArray:customLabels];
+    }
+    //Y axis
+    
+    
+    
+	CPTXYAxis *y            = axisSet.yAxis;
+    {
+        y.title                 = @"Pixel Intensity";
+        y.titleOffset           = 15.0f;
+        y.labelingPolicy        = CPTAxisLabelingPolicyNone;
+        y.majorGridLineStyle    = majorGridLineStyle;
+        y.minorGridLineStyle    = minorGridLineStyle;
+        y.axisConstraints       = [CPTConstraints constraintWithLowerOffset:0.0];
+//        y.preferredNumberOfMajorTicks = 5;
+        
+#pragma message("why cant work with mutableCopy")
+//        CPTMutableTextStyle *textStyle = [CPTTextStyle textStyle];
+//        textStyle.color = [CPTColor whiteColor];
+//        textStyle.fontSize = 12;
+//        
+//        y.labelTextStyle = textStyle;
+        
+        
+//        NSNumberFormatter *newFormatter = [[NSNumberFormatter alloc] init];
+//        newFormatter.minimumIntegerDigits = 1;
+//        newFormatter.positiveSuffix = @"%";
+//        y.labelFormatter = newFormatter;
+        
+    }
+    
+    
+    //Create a bar line style
+    CPTMutableLineStyle *barLineStyle   = [[CPTMutableLineStyle alloc] init];
+    barLineStyle.lineWidth              = 1.0;
+    barLineStyle.lineColor              = [CPTColor whiteColor];
+    CPTMutableTextStyle *whiteTextStyle = [CPTMutableTextStyle textStyle];
+	whiteTextStyle.color                = [CPTColor whiteColor];
+    
+    
+    // My Plot
+    CPTScatterPlot *dataSourceLinePlot = [[CPTScatterPlot alloc] initWithFrame:_graph.bounds];
+    dataSourceLinePlot.identifier = @"Positive"; // hack for legend
+    dataSourceLinePlot.dataSource = self;
+    
+    CPTMutableLineStyle *lineStyle = [dataSourceLinePlot.dataLineStyle mutableCopy];
+    lineStyle.lineWidth              = 2.f;
+    lineStyle.lineColor              = [CPTColor greenColor];
+    dataSourceLinePlot.dataLineStyle = lineStyle;
+    
+    [_graph addPlot:dataSourceLinePlot];
+    
+//    CPTScatterPlot *BluePot = [[CPTScatterPlot alloc] init];
+//    BluePot.identifier = @"Blue Channel";
+//    BluePot.dataSource = self;
+//    
+//    CPTMutableLineStyle *blueLine = [lineStyle mutableCopy];
+//    blueLine.lineColor = [CPTColor blueColor];
+//    BluePot.dataLineStyle = blueLine;
+//    [_graph addPlot:BluePot];
+//    
+//    CPTScatterPlot *GreenPlot = [[CPTScatterPlot alloc] init];
+//    GreenPlot.identifier = @"Green Channel";
+//    GreenPlot.dataSource = self;
+//    
+//    CPTMutableLineStyle *greenLIne = [lineStyle mutableCopy];
+//    greenLIne.lineColor = [CPTColor greenColor];
+//    GreenPlot.dataLineStyle = greenLIne;
+//    [_graph addPlot:GreenPlot];
+    
+    
+    //Add legend
+	CPTLegend *theLegend      = [CPTLegend legendWithGraph:_graph];
+	theLegend.numberOfRows	  = sets.count;
+	theLegend.fill			  = [CPTFill fillWithColor:[CPTColor colorWithGenericGray:0.15]];
+	theLegend.borderLineStyle = barLineStyle;
+	theLegend.cornerRadius	  = 10.0;
+	theLegend.swatchSize	  = CGSizeMake(15.0, 15.0);
+	whiteTextStyle.fontSize	  = 20.0;
+	theLegend.textStyle		  = whiteTextStyle;
+	theLegend.rowMargin		  = 5.0;
+	theLegend.paddingLeft	  = 10.0;
+	theLegend.paddingTop	  = 10.0;
+	theLegend.paddingRight	  = 10.0;
+	theLegend.paddingBottom	  = 10.0;
+	_graph.legend              = theLegend;
+    _graph.legendAnchor        = CPTRectAnchorTopLeft;
+    _graph.legendDisplacement  = CGPointMake(115.0, -10.0);
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
-}
-
--(IBAction)themeTapped:(id)sender
+- (void)createGraph:(THistoChannels*) channels;
 {
-
-}
-
-#pragma mark - Chart behavior
--(void)initPlot {
-    [self configureHost];
-    [self configureGraph];
-    [self configureChart];
-    [self configureLegend];
-}
-
--(void)configureHost {
-	// 1 - Set up view frame
-	CGRect parentRect = self.view.bounds;
-	CGSize toolbarSize = self.toolbar.bounds.size;
-	parentRect = CGRectMake(parentRect.origin.x, 
-							(parentRect.origin.y + toolbarSize.height), 
-							parentRect.size.width, 
-							(parentRect.size.height - toolbarSize.height));
-	// 2 - Create host view
-	self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:parentRect];
-	self.hostView.allowPinchScaling = NO;
-	[self.view addSubview:self.hostView];    
-}
-
--(void)configureGraph {
-	// 1 - Create and initialise graph
-	CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-	self.hostView.hostedGraph = graph;
-	graph.paddingLeft = 0.0f;
-	graph.paddingTop = 0.0f;
-	graph.paddingRight = 0.0f;
-	graph.paddingBottom = 0.0f;
-	graph.axisSet = nil;
-	// 2 - Set up text style
-	CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-	textStyle.color = [CPTColor grayColor];
-	textStyle.fontName = @"Helvetica-Bold";
-	textStyle.fontSize = 16.0f;
-	// 3 - Configure title
-	NSString *title = @"Portfolio Prices: May 1, 2012";
-	graph.title = title;    
-	graph.titleTextStyle = textStyle;
-	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;    
-	graph.titleDisplacement = CGPointMake(0.0f, -12.0f);         
-	// 4 - Set theme
-	self.selectedTheme = [CPTTheme themeNamed:kCPTPlainWhiteTheme];    
-	[graph applyTheme:self.selectedTheme]; 
-}
-
--(void)configureChart
-{
-	// 1 - Get reference to graph
-	CPTGraph *graph = self.hostView.hostedGraph;    
-	// 2 - Create chart
-	CPTPieChart *pieChart = [[CPTPieChart alloc] init];
-	pieChart.dataSource = self;
-	pieChart.delegate = self;
-	pieChart.pieRadius = (self.hostView.bounds.size.height * 0.7) / 2;
-	pieChart.identifier = graph.title;
-	pieChart.startAngle = M_PI_4;
-	pieChart.sliceDirection = CPTPieDirectionClockwise;    
-	// 3 - Create gradient
-	CPTGradient *overlayGradient = [[CPTGradient alloc] init];
-	overlayGradient.gradientType = CPTGradientTypeRadial;
-	overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.9];
-	overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.4] atPosition:1.0];
-	pieChart.overlayFill = [CPTFill fillWithGradient:overlayGradient];
-	// 4 - Add chart to graph    
-	[graph addPlot:pieChart];  
-}
-
--(void)configureLegend
-{
-	// 1 - Get graph instance
-	CPTGraph *graph = self.hostView.hostedGraph;
-	// 2 - Create legend
-	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-	// 3 - Configure legen
-	theLegend.numberOfColumns = 1;
-	theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
-	theLegend.borderLineStyle = [CPTLineStyle lineStyle];
-	theLegend.cornerRadius = 5.0;
-	// 4 - Add legend to graph
-	graph.legend = theLegend;     
-	graph.legendAnchor = CPTRectAnchorRight;
-	CGFloat legendPadding = -(self.view.bounds.size.width / 8);
-	graph.legendDisplacement = CGPointMake(legendPadding, 0.0);   
+    _channels = channels;
+    
+    //Generate layout
+    [self generateLayout];
 }
 
 #pragma mark - CPTPlotDataSource methods
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-	return [[[CPDStockPriceStore sharedInstance] tickerSymbols] count];
+
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+{
+    return 255;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
-{
-	if (CPTPieChartFieldSliceWidth == fieldEnum) {
-		return [[CPDStockPriceStore sharedInstance] dailyPortfolioPrices][index];
-	}
-	return [NSDecimalNumber zero];
-}
-
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index
-{
-	// 1 - Define label text style
-	static CPTMutableTextStyle *labelText = nil;
-	if (!labelText)
+{    
+    NSNumber *num = [[NSNumber alloc] init];
+    if ( fieldEnum == CPTScatterPlotFieldX )
     {
-		labelText= [[CPTMutableTextStyle alloc] init];
-		labelText.color = [CPTColor grayColor];
-	}
-	// 2 - Calculate portfolio total value
-	NSDecimalNumber *portfolioSum = [NSDecimalNumber zero];
-	for (NSDecimalNumber *price in [[CPDStockPriceStore sharedInstance] dailyPortfolioPrices]) {
-		portfolioSum = [portfolioSum decimalNumberByAdding:price];
-	}
-	// 3 - Calculate percentage value
-	NSDecimalNumber *price = [[CPDStockPriceStore sharedInstance] dailyPortfolioPrices][index];
-	NSDecimalNumber *percent = [price decimalNumberByDividingBy:portfolioSum];
-	// 4 - Set up display label
-	NSString *labelValue = [NSString stringWithFormat:@"$%0.2f USD (%0.1f %%)", [price floatValue], ([percent floatValue] * 100.0f)];
-	// 5 - Create and return layer with label text
-	return [[CPTTextLayer alloc] initWithText:labelValue style:labelText];
+        num = [NSNumber numberWithInt:index + 1];
+    }
+    else
+    {
+        std::string channelName("red");
+        if([plot.identifier isEqual: @"Blue Channel"])
+        {
+            channelName = "blue";
+            std::cout << index << ")" << (*_channels)[channelName][index] << std::endl;
+        }
+        else if([plot.identifier isEqual: @"Green Channel"])
+        {
+            channelName = "green";
+        }
+            
+        num = [NSNumber numberWithFloat:(*_channels)[channelName][index]];
+    }
+    return num;
 }
 
--(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index {
-	if (index < [[[CPDStockPriceStore sharedInstance] tickerSymbols] count]) {
-		return [[CPDStockPriceStore sharedInstance] tickerSymbols][index];
-	}
-	return @"N/A";
-}
-
-#pragma mark - UIActionSheetDelegate methods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	// 1 - Get title of tapped button
-	NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-	// 2 - Get theme identifier based on user tap
-	NSString *themeName = kCPTPlainWhiteTheme;
-	if ([title isEqualToString:CPDThemeNameDarkGradient] == YES) {
-		themeName = kCPTDarkGradientTheme;
-	} else if ([title isEqualToString:CPDThemeNamePlainBlack] == YES) {
-		themeName = kCPTPlainBlackTheme;
-	} else if ([title isEqualToString:CPDThemeNamePlainWhite] == YES) {
-		themeName = kCPTPlainWhiteTheme;
-	} else if ([title isEqualToString:CPDThemeNameSlate] == YES) {
-		themeName = kCPTSlateTheme;
-	} else if ([title isEqualToString:CPDThemeNameStocks] == YES) {
-		themeName = kCPTStocksTheme;
-	}
-	// 3 - Apply new theme
-	[self.hostView.hostedGraph applyTheme:[CPTTheme themeNamed:themeName]];
-}
 
 @end

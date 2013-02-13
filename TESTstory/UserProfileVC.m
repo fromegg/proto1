@@ -65,11 +65,14 @@ enum TEXT_ROWS
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"Please fill in info texfield" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 //    
 //    [alert show];
-    
+//    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dir = [paths objectAtIndex: 0];
     _patientProfileFile = [dir stringByAppendingPathComponent: @"userProfile"];
     _patientProfile = [NSKeyedUnarchiver unarchiveObjectWithFile:_patientProfileFile];
+    
+    
+     _patientProfile = [[PatientProfile sharedInstance] patientProfile];
     
     
     self.title = @"Patient Info";
@@ -82,11 +85,11 @@ enum TEXT_ROWS
     @"Country",
     @"State",
     @"Zip",
-    @"PhoneNumber"];
+    @"Phone"];
     
     _physicianList = @[
     @"Last Name",
-    @"Phone Number",
+    @"Phone",
     @"Email"];
     
     _sections = @[@"Patient", @"Physician"];
@@ -100,20 +103,29 @@ enum TEXT_ROWS
 
 -(void)loadPatientProfile
 {
- 
-    if(!_patientProfile)
-    {
-        NSMutableDictionary* patientFields = [[NSMutableDictionary alloc] initWithObjects:@[@"",@"",@"",@"",@"",@"",@"",@""] forKeys:_patientList];
-        NSMutableDictionary* physicianFields = [[NSMutableDictionary alloc] initWithObjects:@[@"",@"",@""] forKeys:_physicianList];
-        _patientProfile = [[NSMutableDictionary alloc] initWithObjectsAndKeys:patientFields,@"Patient", physicianFields, @"Physician", nil];
-        NSLog(@"%@",_patientProfile);
-        NSLog(@"Patient profile generated");
-    }
-    else
-    {
-        NSLog(@"%@",_patientProfile);
-        NSLog(@"Patient profile loaded");
-    }
+   // _patientProfile = [[PatientProfile sharedInstance] patientProfile];
+//    if(!_patientProfile)
+//    {
+//        NSMutableDictionary* patientFields = [[NSMutableDictionary alloc] initWithObjects:@[
+//                                              @"First name",
+//                                              @"Last Name",
+//                                              @"Novgorodskaya St, 3B",
+//                                              @"Kharkiv",
+//                                              @"Ukraine",
+//                                              @"",
+//                                              @"",
+//                                              @""] forKeys:_patientList];
+//        
+//        NSMutableDictionary* physicianFields = [[NSMutableDictionary alloc] initWithObjects:@[@"Dr. Alex",@"",@"physician@test.com"] forKeys:_physicianList];
+//        _patientProfile = [[NSMutableDictionary alloc] initWithObjectsAndKeys:patientFields,@"Patient", physicianFields, @"Physician", nil];
+//        NSLog(@"%@",_patientProfile);
+//        NSLog(@"Patient profile generated");
+//    }
+//    else
+//    {
+//        NSLog(@"%@",_patientProfile);
+//        NSLog(@"Patient profile loaded");
+//    }
     
 }
 

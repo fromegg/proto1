@@ -19,7 +19,7 @@
     UIActivityIndicatorView *_spinner;
 }
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *control;
+@property (strong, nonatomic) IBOutlet UIButton *control;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (assign) SystemSoundID tickSound;
 @property(nonatomic) TestInfo *test;
